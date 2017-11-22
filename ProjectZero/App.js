@@ -3,10 +3,9 @@ import MoviesListView from './src/components/MoviesListView';
 import MovieDetails from './src/components/MovieDetails';
 import {StackNavigator} from 'react-navigation';
 
-export default class App extends Component{
-    render(){
-      return(
-        <MovieDetails />
-      );
-    }
-}
+const App = StackNavigator({
+  MoviesList: {screen: MoviesListView},
+  MovieDetails: {screen: MovieDetails}
+});
+
+export default App;

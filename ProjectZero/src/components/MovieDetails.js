@@ -6,7 +6,17 @@ import {hardCodedData} from '../data/data.js'
 // Detect screen sizes
 const screen = Dimensions.get('window');
 
+
 export default class MovieDetails extends Component{
+  static navigationOptions = {
+    header:null
+  };
+
+  constructor(props){
+    super(props);
+    const key = props.navigation.state.params.movieKey;
+    this.state = {movie: this._fetchMovie(key)};
+  }
 
   _fetchMovie(key){
     for (let i=0; i < hardCodedData.length; i++)
@@ -16,8 +26,21 @@ export default class MovieDetails extends Component{
   }
 
   render(){
+    const goBack = this.props.navigation.goBack;
     return (
-      <Text>Let's start the React Native workshop!</Text>
+      <ScrollView>
+        <Image
+          source={{uri: this.state.movie.uri}}
+          style={styles.img}
+          resizeMode='stretch'
+          />
+        <Text style={styles.movieTitle}>{this.state.movie.name}</Text>
+        <Text style={styles.header}>Storyline:</Text>
+        <Text>{this.state.movie.storyline}</Text>
+        <Button onPress={()=>goBack()}
+                title='Go back'
+                color='black'/>
+      </ScrollView>
     );
   }
 }
